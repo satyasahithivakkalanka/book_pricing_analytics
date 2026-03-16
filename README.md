@@ -139,7 +139,36 @@ There is **almost no relationship** between title length and book pricing. Title
 
 ---
 
-# 8. Tools and Technologies Used
+# 8. Fourth Analysis – NLP Text Analysis of Book Titles
+
+To further explore the textual characteristics of book titles, **Natural Language Processing (NLP)** techniques were applied.
+
+## Methods Used
+
+The following text analytics techniques were performed:
+
+### Word Frequency Analysis
+Common words appearing in book titles were extracted after removing stopwords and punctuation. This analysis helps identify frequently used keywords in book titles across the catalog.
+
+### TF-IDF (Term Frequency – Inverse Document Frequency)
+TF-IDF was used to determine which words are most important within book titles relative to the entire dataset. This helps highlight distinctive keywords that appear frequently in specific titles but less often overall.
+
+### Sentiment Scoring
+Sentiment analysis was applied to evaluate whether book titles generally convey positive, neutral, or negative language. A sentiment scoring method was used to assign polarity values to titles.
+
+## Key Observations
+
+- Words related to **adventure, mystery, love, and life** appeared frequently in book titles.
+- TF-IDF analysis identified distinctive words that differentiate books within similar categories.
+- Most book titles exhibited **neutral sentiment**, with a smaller proportion containing strongly positive or negative wording.
+
+## Interpretation
+
+The NLP analysis provides insights into how language is used in book titles and how certain words may be used for marketing appeal. While title wording may influence reader interest, it does not necessarily correlate strongly with book ratings or pricing.
+
+---
+
+# 9. Tools and Technologies Used
 
 - Python  
 - SQLite  
@@ -149,20 +178,23 @@ There is **almost no relationship** between title length and book pricing. Title
 - Matplotlib  
 - Seaborn  
 - Statsmodels  
+- Scikit-learn (TF-IDF)  
+- NLTK / TextBlob (Sentiment Analysis)
 
 These tools were used for:
 
 - Data collection  
 - Data storage  
 - Statistical analysis  
+- Natural language processing  
 - Data visualization  
 
 ---
 
-# 9. Conclusion
+# 10. Conclusion
 
 This project demonstrated a **complete data analytics workflow**, starting from automated web scraping to advanced data analysis and interpretation.
 
-The results showed that **book prices are not strongly influenced by ratings or title characteristics**. However, small pricing differences based on title sentiment were observed.
+The results showed that **book prices are not strongly influenced by ratings or title characteristics**. However, small pricing differences based on title sentiment were observed. Additionally, NLP analysis of book titles revealed common language patterns used in book marketing but showed limited impact on pricing or ratings.
 
-The project highlights the value of **data-driven decision-making** and demonstrates how real-world data can be transformed into meaningful insights.
+The project highlights the value of **data-driven decision-making** and demonstrates how real-world data can be transformed into meaningful insights using statistical analysis and natural language processing.
