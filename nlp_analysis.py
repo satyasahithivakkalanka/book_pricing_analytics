@@ -204,7 +204,7 @@ ax.set_axisbelow(True)
 plt.tight_layout()
 plt.savefig("nlp_analysis.png", dpi=150, bbox_inches="tight")
 plt.close()
-print("\n✅ Chart saved → nlp_analysis.png")
+print("\n Chart saved → nlp_analysis.png")
 
 # 6. TF-IDF TOP KEYWORDS BAR CHART
 fig, ax = plt.subplots(figsize=(9, 6))
@@ -218,6 +218,6 @@ ax.set_xlim(0, max(tfidf_vals) * 1.2)
 plt.tight_layout()
 plt.savefig("tfidf_keywords.png", dpi=150, bbox_inches="tight")
 plt.close()
-print("✅ Chart saved → tfidf_keywords.png")
+print(" Chart saved → tfidf_keywords.png")
 
-print("\n🎉 NLP analysis complete.")
+print("\n NLP analysis complete.")
