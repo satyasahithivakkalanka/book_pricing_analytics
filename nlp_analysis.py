@@ -1,6 +1,6 @@
 """
 nlp_analysis.py
----------------
+
 NLP analysis of book titles from the books.toscrape.com dataset.
 
 Techniques used:
@@ -22,18 +22,15 @@ import matplotlib.colors as mcolors
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-# ─────────────────────────────────────────────
 # 0. LOAD DATA
-# ─────────────────────────────────────────────
 conn = sqlite3.connect("books.db")
 df = pd.read_sql_query("SELECT title, price, rating FROM books", conn)
 conn.close()
 
 print(f"Loaded {len(df):,} book records.\n")
 
-# ─────────────────────────────────────────────
 # 1. TEXT CLEANING
-# ─────────────────────────────────────────────
+
 STOPWORDS = {
     "a", "an", "the", "and", "or", "of", "in", "to", "for", "on",
     "at", "by", "is", "it", "its", "with", "from", "as", "be",
@@ -53,9 +50,8 @@ def clean_title(text):
 df["tokens"] = df["title"].apply(clean_title)
 df["clean_title"] = df["tokens"].apply(lambda t: " ".join(t))
 
-# ─────────────────────────────────────────────
 # 2. WORD FREQUENCY ANALYSIS
-# ─────────────────────────────────────────────
+
 all_words = [word for tokens in df["tokens"] for word in tokens]
 word_freq = Counter(all_words)
 top_words = word_freq.most_common(20)
@@ -64,9 +60,8 @@ print("TOP 20 MOST FREQUENT WORDS IN TITLES:")
 for word, count in top_words:
     print(f"  {word:<20} {count}")
 
-# ─────────────────────────────────────────────
 # 3. TF-IDF KEYWORD EXTRACTION
-# ─────────────────────────────────────────────
+
 # Treats each title as a "document" — words with high TF-IDF
 # are distinctive to individual titles, not just common everywhere.
 
@@ -82,10 +77,7 @@ top_tfidf = sorted(tfidf_scores.items(), key=lambda x: x[1], reverse=True)[:20]
 print("\nTOP 20 TF-IDF KEYWORDS (most distinctive across titles):")
 for word, score in top_tfidf:
     print(f"  {word:<20} {score:.4f}")
-
-# ─────────────────────────────────────────────
 # 4. CUSTOM SENTIMENT SCORING
-# ─────────────────────────────────────────────
 # A concise rule-based lexicon relevant to book marketing language.
 # Scoring: positive word = +1, negative word = -1, normalised by title length.
 
@@ -133,13 +125,12 @@ print(df.groupby("sentiment_label")["price"].mean().round(2).to_string())
 print("\nAVERAGE RATING BY SENTIMENT:")
 print(df.groupby("sentiment_label")["rating"].mean().round(2).to_string())
 
-# ─────────────────────────────────────────────
+
 # 5. VISUALISATIONS
-# ─────────────────────────────────────────────
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 fig.suptitle("NLP Analysis of Book Titles", fontsize=16, fontweight="bold", y=1.01)
 
-# --- 5a. Top 15 word frequencies (bar chart) ---
+# --- 5a. Top 15 word frequencies (bar chart) 
 ax = axes[0, 0]
 words_plot, counts_plot = zip(*top_words[:15])
 colors = plt.cm.Blues_r(np.linspace(0.3, 0.85, 15))
@@ -149,7 +140,7 @@ ax.set_title("Top 15 Most Common Words in Titles")
 ax.bar_label(bars, padding=3, fontsize=8)
 ax.set_xlim(0, max(counts_plot) * 1.15)
 
-# --- 5b. Word cloud via matplotlib scatter ---
+# --- 5b. Word cloud via matplotlib scatter 
 ax = axes[0, 1]
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)
@@ -215,9 +206,7 @@ plt.savefig("nlp_analysis.png", dpi=150, bbox_inches="tight")
 plt.close()
 print("\n✅ Chart saved → nlp_analysis.png")
 
-# ─────────────────────────────────────────────
 # 6. TF-IDF TOP KEYWORDS BAR CHART
-# ─────────────────────────────────────────────
 fig, ax = plt.subplots(figsize=(9, 6))
 tfidf_words, tfidf_vals = zip(*top_tfidf[:15])
 colors = plt.cm.Purples_r(np.linspace(0.3, 0.85, 15))
